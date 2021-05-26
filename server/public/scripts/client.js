@@ -54,12 +54,20 @@ function renderBooks(books) {
 
   for (let i = 0; i < books.length; i += 1) {
     let book = books[i];
+    let read = '';
+    
+    if (book.isRead) {
+      read = '✔'
+    }
+
+
+    
     // For each book, append a new row to our table
     $('#bookShelf').append(`
       <tr>
         <td>${book.title}</td>
         <td>${book.author}</td>
-        <td>${} <td>
+        <td>${read} <td>
         <td> 
           <button class="delete-button" data-id="${book.id}">Delete</button> 
           <button class="mark-button" data-id="${book.id}">Mark as Read</button>
@@ -94,7 +102,7 @@ function deleteBook(bookID) {
 // ------------------------   PUT --------------------------- //
 function handleMark() {
   console.log('clicked mark');
-  markBook($(this).data("id"));
+  markBook( $(this).data("id") );
 }
 
 function markBook(bookID) {

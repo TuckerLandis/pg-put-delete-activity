@@ -42,10 +42,15 @@ router.post('/',  (req, res) => {
 
 router.put('/:id', (req, res) => {
 const bookID = req.params.id;
+console.log('bookid', bookID);
+
 let isRead = req.body.isRead;
+console.log(isRead);
+
 let queryText = '';
+
 if (isRead) {
-  queryText = `UPDATE "books" SET "isRead"=1 WHERE "songs".id = $1;`;
+  queryText = `UPDATE "books" SET "isRead"=true WHERE "books".id = $1;`;
 } else if (!isRead) {
   return;
 } else {
@@ -53,7 +58,7 @@ if (isRead) {
   return;
 }
 
-pool.query(queryText, [songId] )
+pool.query(queryText, [bookID] )
 .then(response => {
   console.log(response.rowCount);
   res.sendStatus(202);
