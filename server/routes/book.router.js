@@ -40,6 +40,32 @@ router.post('/',  (req, res) => {
 // Request must include a parameter indicating what book to update - the id
 // Request body must include the content to update - the status
 
+router.put('/:id', (req, res) => {
+const bookID = req.params.id;
+let isRead = req.body.isRead;
+let queryText = '';
+if (isRead) {
+  queryText = `UPDATE "books" SET "isRead"=1 WHERE "songs".id = $1;`;
+} else if (!isRead) {
+  return;
+} else {
+  res.sendStatus(500);
+  return;
+}
+
+pool.query(queryText, [songId] )
+.then(response => {
+  console.log(response.rowCount);
+  res.sendStatus(202);
+}).catch(err => {
+  console.log('error in put', err);
+  res.sendStatus(500);
+  
+})
+
+
+
+})
 
 // TODO - DELETE 
 // Removes a book to show that it has been read
