@@ -49,7 +49,7 @@ if (!editMode) {
 ////////////////////////////EDITOR IF EDIT MODE ENABLED //////////////////////////////
   $.ajax({
     method: 'PUT',
-    url: `/books/${editID}`,
+    url: `/books/edit/${editID}`,
     data: {
       editMode: true,
       editAuthor: $('#author').val(),
@@ -182,5 +182,7 @@ function handleEdit() {
 
 function handleCancel() {
   console.log('clicked cancel');
+  editMode = false;
+  console.log('edit mode activated');
   $('#cancel-button-zone').empty();
 }

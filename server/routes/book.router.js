@@ -1,4 +1,4 @@
-const { query } = require('express');
+const { query, response } = require('express');
 const express = require('express');
 const router = express.Router();
 
@@ -67,10 +67,37 @@ pool.query(queryText, [bookID] )
   res.sendStatus(500);
   
 })
-
-
-
 })
+
+//edit put ----------------------------------------------
+router.put('/edit/:id', (req, res) => {
+let bookID = req.params.id;
+let newAuthor = req.body.editAuthor;
+let newTitle = req.body.editTitle;
+
+console.log('editing ', bookID, newAuthor, newTitle);
+
+let queryText = `UPDATE "books" SET "author"='${newAuthor}', "title"='${newTitle}'  WHERE "books".id = $1;`;          
+
+
+pool.query(queryText, [bookID] )
+.then(response => {
+  console.log(response.rowCount);
+  res.sendStatus(202);
+  
+}).catch(err => {
+  console.log('error in edit put', err);
+  res.sendStatus(500);
+})
+})
+
+
+
+
+// "title"='${newTitle}'
+
+
+
 
 // TODO - DELETE 
 // Removes a book to show that it has been read
