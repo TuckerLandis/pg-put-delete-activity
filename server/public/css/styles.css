@@ -4,9 +4,11 @@ body {
 }
 
 header {
-  background-color: brown;
+  background-color: teal;
   padding: 1em;
   margin-bottom: 1em;
+  text-align: center;
+  color: snow;
 }
 
 h1 {
@@ -19,7 +21,7 @@ main {
 }
 
 section {
-  background-color: linen;
+  background-color: rgb(113, 163, 163);
   padding: .5em;
   margin-bottom: 1em;
 }
@@ -29,3 +31,15 @@ th {
 }
 
 
+#bookshelf {
+  border: 1px 1px black;
+  font-size: 20pt;
+}
+
+tr {
+  border: 1px 1px black;
+}
+
+th {
+  font-size: 26pt;
+}

@@ -6,6 +6,8 @@
   <title>Awesome Reads</title>
   <script type="text/javascript" src="vendors/jquery.js"></script>
   <script type="text/javascript" src="scripts/client.js"></script>
+  <link rel="stylesheet" href="vendors/bootstrap.css">
+  <link rel="stylsesheet" href="vendors/bootstrap.css.map">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 
@@ -15,17 +17,17 @@
   </header>
   <main>
     <section>
-      <h3>Add New Book</h3>
+      <h3 id="edit-change-h3">Add New Book</h3>
       <label>Title:</label><input type="text" name="" value="" id="title" size="50">
       <br />
       <label>Author:</label><input type="text" name="" value="" id="author" size="50">
       <br />
-      <button type="button" id="submitBtn">Submit</button>
+      <button type="button" id="submitBtn" class="btn btn-success">Submit</button>
       <div id="cancel-button-zone"></div>
     </section>
     <section>
       <div>
-        <h3>Book List</h3>
+        <h3>Book List</h3> <button>Sort by Title</button> <button>Sort by Author</button>
         <table>
           <thead>
             <tr>

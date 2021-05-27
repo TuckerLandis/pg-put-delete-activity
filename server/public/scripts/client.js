@@ -28,8 +28,10 @@ function handleSubmit() {
 }
 
 
-//---------------------------------- POST-------------------//
-// adds a book to the database
+/**This function adds a book via an ajax POST if the page is in submit mode, 
+ * and sends an ajax PUT to edit a book if in edit mode
+ * @param  {} bookToAdd
+ */
 function addBook(bookToAdd) {
 
 
@@ -63,19 +65,10 @@ if (!editMode) {
     console.log('error in handlemark', err);
     alert('There was an error marking this book as read');
   })
+}}
 
-
-
-
-}
- 
-
-
-
-}
-
-//----------------------------GET--------------------//
-// refreshBooks will get all books from the server and render to page
+/**This function performs an ajax GET to refresh the array of books from the database
+ */
 function refreshBooks() {
   $.ajax({
     type: 'GET',
@@ -89,7 +82,11 @@ function refreshBooks() {
 }
 
 
-// Displays an array of books to the DOM
+/**This function renders the present state of the book database to the DOM, with buttons for 
+ * deleting a book, marking a book as read, and editing a book. The edit button flips the page
+ *  into edit mode, and globally stores the clicked book's ID for use in the addbook function
+ * @param  {} books
+ */
 function renderBooks(books) {
   $('#bookShelf').empty();
 
@@ -110,10 +107,10 @@ function renderBooks(books) {
         <td>${book.author}</td>
         <td>${read} <td>
         <td> 
-          <button class="delete-button" data-id="${book.id}">Delete</button> 
-          <button class="mark-button" data-id="${book.id}">Mark as Read</button>
+          <button class="delete-button btn btn-danger" data-id="${book.id}">Delete</button> 
+          <button class="mark-button btn btn-success" data-id="${book.id}">Mark as Read</button>
         </td>
-        <td>  <button class="edit-button" data-id="${book.id}"> Edit </button> </td>
+        <td>  <button class="edit-button btn btn-warning" data-id="${book.id}"> Edit </button> </td>
         
       </tr>
     `);
@@ -177,6 +174,7 @@ function handleEdit() {
   $('#cancel-button-zone').append(`
   <button class="cancel-button">Cancel</button>
   `)
+  $('#edit-change-h3').text('Edit Book')
   
 }
 

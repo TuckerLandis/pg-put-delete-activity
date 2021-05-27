@@ -69,7 +69,7 @@ pool.query(queryText, [bookID] )
 })
 })
 
-//edit put ----------------------------------------------
+//-------------------edit put ------------
 router.put('/edit/:id', (req, res) => {
 let bookID = req.params.id;
 let newAuthor = req.body.editAuthor;
@@ -90,13 +90,6 @@ pool.query(queryText, [bookID] )
   res.sendStatus(500);
 })
 })
-
-
-
-
-// "title"='${newTitle}'
-
-
 
 
 // TODO - DELETE 
