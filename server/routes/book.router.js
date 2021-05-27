@@ -92,11 +92,12 @@ pool.query(queryText, [bookID] )
 })
 
 
-// TODO - DELETE 
-// Removes a book to show that it has been read
-// Request must include a parameter indicating what book to update - the id
-
-
+//DELETE//
+/**This catches an id of a book to delete, and performs a sql query to delete said book
+ * @param  {id'} '/
+ * @param  {} (req
+ * @param  {} res
+ */
 router.delete('/:id', (req, res) => {
 const bookToDelete = req.params.id;
 console.log('to delete', bookToDelete);

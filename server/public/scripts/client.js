@@ -117,13 +117,14 @@ function renderBooks(books) {
   }
 }
 
-// ------------------------   Delete --------------------------- //
+
 function handleDelete() {
   console.log('Clicked Delete');
   deleteBook($(this).data("id"));
 }
 
-/** This function performs an ajax call to the server, including a url with the book ID to be deleted
+/** This function performs an ajax call to the server, including a url 
+ * with the book ID to be deleted
  * @param  {} bookID
  */
 function deleteBook(bookID) {
@@ -138,12 +139,16 @@ function deleteBook(bookID) {
   })
 }
 
-// ------------------------   PUT --------------------------- //
+
 function handleMark() {
   console.log('clicked mark');
   markBook( $(this).data("id") );
 }
 
+/** This function marks a book as read, adding true to the isRead column in the table, which, 
+ * when rendering, appends a check mark to the book to denote it has been read
+ * @param  {} bookID
+ */
 function markBook(bookID) {
   console.log('Marking book');
   
@@ -164,7 +169,9 @@ function markBook(bookID) {
 }
 
 
-//--------------- EDIT ---------------------- //
+/**This function fires when an edit button is clicked, stores that book's ID in the global EditID variable,
+ * some jquery change to the dom - appending a cancel button that flips the page back to submit mode, and changes the header to 'edit book'
+ */
 function handleEdit() {
   console.log('clicked edit');
   editID = $(this).data("id");
@@ -178,9 +185,20 @@ function handleEdit() {
   
 }
 
+/**This function flips the page back to submit mode, sets the editmode variable to false, and removes the cancel button
+ */
 function handleCancel() {
   console.log('clicked cancel');
   editMode = false;
   console.log('edit mode activated');
   $('#cancel-button-zone').empty();
 }
+
+
+
+/// todo ---
+/*
+GET request for sorting, probably pass a bit of data for each type of sort so i can just have one more GET
+
+
+*/
