@@ -4,10 +4,18 @@ $(document).ready(function () {
   addClickHandlers();
 });
 
+
+// global decl of book to be edited
+let editID = 0;
+let editMode = false;
+
+
 function addClickHandlers() {
   $('#submitBtn').on('click', handleSubmit);
   $('#bookShelf').on('click', '.delete-button', handleDelete)
   $('#bookShelf').on('click', '.mark-button', handleMark)
+  $('#bookShelf').on('click', '.edit-button', handleEdit)
+  $('#cancel-button-zone').on('click', '.cancel-button', handleCancel)
   // TODO - Add code for edit & delete buttons
 }
 
@@ -19,8 +27,13 @@ function handleSubmit() {
   addBook(book);
 }
 
+
+//---------------------------------- POST-------------------//
 // adds a book to the database
 function addBook(bookToAdd) {
+
+
+if (!editMode) {
   $.ajax({
     type: 'POST',
     url: '/books',
@@ -32,8 +45,36 @@ function addBook(bookToAdd) {
     console.log('Error in POST', error)
     alert('Unable to add book at this time. Please try again later.');
   });
+} else if (editMode) {
+////////////////////////////EDITOR IF EDIT MODE ENABLED //////////////////////////////
+  $.ajax({
+    method: 'PUT',
+    url: `/books/${editID}`,
+    data: {
+      editMode: true,
+      editAuthor: $('#author').val(),
+      editTitle : $('#title').val(),
+    }
+  }).then(response => {
+    console.log('editing: ', editID);
+    refreshBooks();
+    
+  }).catch(err => {
+    console.log('error in handlemark', err);
+    alert('There was an error marking this book as read');
+  })
+
+
+
+
+}
+ 
+
+
+
 }
 
+//----------------------------GET--------------------//
 // refreshBooks will get all books from the server and render to page
 function refreshBooks() {
   $.ajax({
@@ -72,6 +113,7 @@ function renderBooks(books) {
           <button class="delete-button" data-id="${book.id}">Delete</button> 
           <button class="mark-button" data-id="${book.id}">Mark as Read</button>
         </td>
+        <td>  <button class="edit-button" data-id="${book.id}"> Edit </button> </td>
         
       </tr>
     `);
@@ -124,3 +166,21 @@ function markBook(bookID) {
   })
 }
 
+
+//--------------- EDIT ---------------------- //
+function handleEdit() {
+  console.log('clicked edit');
+  editID = $(this).data("id");
+  console.log('edit ID: ', editID);
+  editMode = true;
+  console.log('edit mode activated');
+  $('#cancel-button-zone').append(`
+  <button class="cancel-button">Cancel</button>
+  `)
+  
+}
+
+function handleCancel() {
+  console.log('clicked cancel');
+  $('#cancel-button-zone').empty();
+}
